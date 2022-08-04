@@ -1,3 +1,4 @@
+<script lang="ts" setup></script>
 <template>
   <div
     id="app-main"
@@ -22,11 +23,13 @@
       <div
         v-for="(value, key) in values"
         :key="key"
-        @click="!isPlayAlone ? play(key) : playAlone(key)"
+        @click="!isPlayAlone ? play(key.toString()) : playAlone(key.toString())"
         class="bg-pink-800 hover:bg-pink-700 rounded flex justify-center items-center"
       >
         <span v-if="!value">{{ value }}</span>
-        <i v-else :class="`${turn[value]} text-4xl`"></i>
+        <font-awesome-icon v-else :icon="`fa-solid ${turn[value]}`" class="text-4xl"/>
+        <!-- <i v-else :class="`${turn[value]} text-4xl`"></i> -->
+
       </div>
     </div>
     <menu-board
@@ -49,17 +52,22 @@
         <a
           href="https://github.com/AlbertDeHoz/front-vue-exercise"
           class="text-slate-600"
-          >AlbertDeHoz{<i class="fab fa-github"></i>}</a
+          >AlbertDeHoz{<font-awesome-icon icon="fa-brands fa-github" />}</a
         >
-        with <i class="fas fa-heart"></i
-      ></span>
+        with <font-awesome-icon icon="fa-solid fa-heart" /></span>
     </footer>
   </div>
 </template>
 
 <script>
-import ModalWinner from "./components/ModalWinner";
-import MenuBoard from "./components/MenuBoard";
+import ModalWinner from "./components/ModalWinner.vue";
+import MenuBoard from "./components/MenuBoard.vue";
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faXmark, faCircle, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
+
+library.add(faXmark, faCircle, faHeart, faGithub)
 
 export default {
   name: "App",
@@ -67,11 +75,12 @@ export default {
   components: {
     MenuBoard,
     ModalWinner,
+    FontAwesomeIcon
   },
 
   data: () => ({
     isPlayAlone: false,
-    turn: { X: "fa fa-times", O: "fa fa-circle" },
+    turn: { X: "fa-xmark", O: "fa-circle" },
     history: [],
     values: {},
     defaultValues: {
@@ -133,7 +142,7 @@ export default {
     backOneMove() {
       this.history.pop();
       const lastIndex = this.history.length - 1;
-      this.setValues({ ...this.history[lastIndex] });
+      this.setValues([ ...this.history[lastIndex] ]);
     },
 
     getEmptySlots() {
@@ -168,7 +177,7 @@ export default {
         return;
       }
       const playerMove = this.play(key);
-      this.makeOneMove(playerMove);
+      this.makeOneMove();
     },
 
     play(key) {
@@ -214,6 +223,11 @@ export default {
   font-family: "Roboto Mono", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  --tw-bg-opacity: 1;
+  background-color: rgb(15 23 42 / var(--tw-bg-opacity));
 }
 
 .app h1 {

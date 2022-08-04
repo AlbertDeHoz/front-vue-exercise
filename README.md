@@ -33,8 +33,8 @@ npm install
 - [x]  Make one move automatically (dumb).
 - [x]  Possibility to play against the computer (dumb).
 - [x]  Border added according to the position of the frames.
+- [x]  Fixed the responsive version (Mobile width of 375px) to display correctly.
 
 ## Not implemented yet
 
-1. Fix the responsive version (Mobile width of 375px) to display correctly.
-2. Add some clicking sound when the user plays.
+1. Add some clicking sound when the user plays.
