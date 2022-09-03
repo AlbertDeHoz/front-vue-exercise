@@ -6,6 +6,6 @@ build:
 shell:
 	docker run --rm -it -v $(shell pwd):/app -p 3000:3000 --entrypoint=ash --name $(PROCCESS_NAME) $(PROJECT_NAME)
 run:
-	docker run --rm -it -p 3000:3000 --entrypoint=npm --name $(PROCCESS_NAME) $(PROJECT_NAME) run dev
+	docker run --rm -it -v $(shell pwd):/app -p 3000:3000 --entrypoint=npm --name $(PROCCESS_NAME) $(PROJECT_NAME) run dev
 exec:
 	docker exec -it $(PROCCESS_NAME) ash
