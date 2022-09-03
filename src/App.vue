@@ -80,7 +80,7 @@ export default {
 
   data: () => ({
     isPlayAlone: false,
-    turn: { X: "fa-xmark", O: "fa-circle" },
+    turn: { X: "fa-xmark", O: "fa-circle","=":"=" },
     history: [],
     values: {},
     defaultValues: {
@@ -107,7 +107,7 @@ export default {
     },
     currentPlayer: "X",
     machinePlayer: "O",
-    winner: null,
+    winner: "",
   }),
 
   mounted() {
@@ -136,7 +136,7 @@ export default {
       const key = emptySlots[randomNumber];
       setTimeout(() => {
         this.play(key);
-      }, 300);
+      }, 400);
     },
 
     backOneMove() {
@@ -210,6 +210,10 @@ export default {
         const [a, b, c] = lines[i];
         if (values[a] && values[a] === values[b] && values[a] === values[c]) {
           return values[a];
+        }
+        else if (Object.values(values).filter( value => value === "").length === 0 ){
+          console.log("it's a tie!")
+          return "=";
         }
       }
       return null;
